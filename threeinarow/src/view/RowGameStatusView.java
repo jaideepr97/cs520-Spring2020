@@ -1,13 +1,10 @@
 package view;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
 import controller.RowGameController;
 import model.RowGameModel;
+
+import javax.swing.*;
+import java.awt.*;
 
 
 public class RowGameStatusView implements RowGameView
@@ -17,23 +14,23 @@ public class RowGameStatusView implements RowGameView
 
     
     public RowGameStatusView(RowGameController gameController) {
-	super();
+		super();
 
-	messages.setBackground(Color.white);
-	messages.add(playerturn);
+		messages.setBackground(Color.white);
+		messages.add(playerturn);
     }
 
     public void update(RowGameModel gameModel) {
-	if (gameModel.getFinalResult() == null) {
-	    if (gameModel.player.equals("1")) {
-		playerturn.setText("Player 1 to play 'X'");
-	    }
-	    else {
-		playerturn.setText("Player 2 to play 'O'");
-	    }
-	}
-	else {
-	    playerturn.setText(gameModel.getFinalResult());
-	}	
+		if (gameModel.getFinalResult() == null) {
+			if (gameModel.player.equals("1")) {
+				playerturn.setText("Player 1 to play 'X'");
+			}
+			else {
+				playerturn.setText("Player 2 to play 'O'");
+			}
+		}
+		else {
+			playerturn.setText(gameModel.getFinalResult());
+		}
     }
 }

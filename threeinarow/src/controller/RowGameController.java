@@ -23,9 +23,9 @@ public class RowGameController implements RowGameRulesStrategy{
     /**
      * Creates a new game initializing the GUI.
      */
-    public RowGameController(RowGameModel.Strategy strategy) {
-	gameModel = new RowGameModel(strategy);
-	gameView = new RowGameGUI(this);
+    public RowGameController(RowGameModel.Strategy strategy, int rows, int columns) {
+	gameModel = new RowGameModel(strategy, rows, columns);
+	gameView = new RowGameGUI(this, rows, columns);
 	
 	resetGame();
     }
@@ -397,19 +397,19 @@ public class RowGameController implements RowGameRulesStrategy{
      * Resets the game to be able to start playing again.
      */
     public void reset(RowGameModel gameModel) {
-        for(int row = 0;row<3;row++) {
-            for(int column = 0;column<3;column++) {
+        for(int row = 0;row<gameModel.rows;row++) {
+            for(int column = 0;column<gameModel.columns;column++) {
                 gameModel.blocksData[row][column].reset();
 				// Enable the bottom row
 				if(gameModel.strategy == RowGameModel.Strategy.ThreeInARow) {
-					gameModel.blocksData[row][column].setIsLegalMove(row == 2);
+					gameModel.blocksData[row][column].setIsLegalMove(row == gameModel.rows-1);
 				} else if (gameModel.strategy == RowGameModel.Strategy.TicTacToe) {
 					gameModel.blocksData[row][column].setIsLegalMove(true);
 				}
             }
         }
 		gameModel.player = "1";
-		gameModel.movesLeft = 9;
+		gameModel.movesLeft = gameModel.rows * gameModel.columns;
 		gameModel.setFinalResult(null);
 
 		gameView.update(gameModel);
@@ -425,10 +425,72 @@ public class RowGameController implements RowGameRulesStrategy{
 	}
 
 	public boolean isWin(RowGameModel gameModel) {
+    	int rows = gameModel.blocksData.length;
+    	int columns = gameModel.blocksData[0].length;
+    	boolean isWin = true;
+
+    	for(int i=0; i<rows; i++) {
+    		isWin = true;
+    		for(int j=0; j<columns; j++) {
+    			if(gameModel.blocksData[i][j] != gameModel.blocksData[i][0]) {
+    				isWin = false;
+    				break;
+				}
+			}
+			if(isWin)
+				break;
+		}
+    	if(isWin) {
+    		return true;
+		}
+
+		for(int j=0; j<columns; j++) {
+			isWin = true;
+			for(int i=0; i<rows; i++) {
+				if(gameModel.blocksData[i][j] != gameModel.blocksData[0][j]) {
+					isWin = false;
+					break;
+				}
+			}
+			if(isWin)
+				break;
+		}
+		if(isWin) {
+			return true;
+		}
+
+		isWin = true;
+		for(int i=1; i<rows; i++) {
+			if(gameModel.blocksData[i][i] != gameModel.blocksData[i-1][i-1]) {
+				isWin = false;
+				break;
+			}
+		}
+		if(isWin) {
+			return true;
+		}
+
+		isWin = true;
+		for(int i=rows-1; i>0; i--) {
+			if(gameModel.blocksData[i][rows-1-i] != gameModel.blocksData[i-1][rows-i]) {
+				isWin = false;
+				break;
+			}
+		}
+		if(isWin) {
+			return true;
+		}
     	return false;
 	}
 	public boolean isTie(RowGameModel gameModel) {
-    	return false;
+    	for(int i=0; i<gameModel.blocksData.length; i++) {
+    		for(int j=0; j<gameModel.blocksData[0].length; j++) {
+    			if(gameModel.blocksData[i][j].equals("")) {
+    				return false;
+				}
+			}
+		}
+    	return !isWin(gameModel);
 	}
 
 }

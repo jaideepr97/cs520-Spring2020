@@ -24,14 +24,14 @@ public class RowGameGUI implements RowGameView
     /**
      * Creates a new game initializing the GUI.
      */
-    public RowGameGUI(RowGameController gameController) {
+    public RowGameGUI(RowGameController gameController, int rows, int columns) {
 	this.gameController = gameController;
 	
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setSize(new Dimension(500, 350));
         gui.setResizable(true);
 
-	gameBoardView = new RowGameBoardView(this.gameController);
+	gameBoardView = new RowGameBoardView(this.gameController, rows, columns);
         JPanel gamePanel = gameBoardView.gamePanel;
 
         JPanel options = new JPanel(new FlowLayout());

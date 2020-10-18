@@ -11,19 +11,19 @@ import java.awt.event.ActionListener;
 
 public class RowGameBoardView implements RowGameView
 {
-    public JButton[][] blocks = new JButton[3][3];
+    public JButton[][] blocks;
     public JPanel gamePanel = new JPanel(new FlowLayout());
 
     
-    public RowGameBoardView(RowGameController gameController) {
+    public RowGameBoardView(RowGameController gameController, int rows, int columns) {
 	super();
-
-        JPanel game = new JPanel(new GridLayout(3,3));
+        blocks = new JButton[rows][columns];
+        JPanel game = new JPanel(new GridLayout(rows, columns));
         gamePanel.add(game, BorderLayout.CENTER);
 	
        // Initialize a JButton for each cell of the 3x3 game board.
-        for(int row = 0; row<3; row++) {
-            for(int column = 0; column<3 ;column++) {
+        for(int row = 0; row<rows; row++) {
+            for(int column = 0; column<columns ;column++) {
                 blocks[row][column] = new JButton();
                 blocks[row][column].setPreferredSize(new Dimension(75,75));
                 game.add(blocks[row][column]);

@@ -45,8 +45,8 @@ public class RowGameBoardView implements RowGameView
      * @param gameModel The current game model
      */
     public void update(RowGameModel gameModel) {
-	for (int row = 0; row < 3; row++) {
-	    for (int column = 0; column < 3; column++) {
+	for (int row = 0; row < gameModel.rows; row++) {
+	    for (int column = 0; column < gameModel.columns; column++) {
 		this.updateBlock(gameModel, row, column);
 	    } // end for col
 	} // end for row	
@@ -58,7 +58,7 @@ public class RowGameBoardView implements RowGameView
      *
      * @param gameModel The game model
      * @param row The row that contains the block
-     * @param column The column that contains the block
+     * @param col The column that contains the block
      */
     protected void updateBlock(RowGameModel gameModel, int row, int col) {
 	blocks[row][col].setText(gameModel.blocksData[row][col].getContents());

@@ -1,10 +1,10 @@
+import model.RowBlockModel;
+import model.RowGameModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import model.RowBlockModel;
-import model.RowGameModel;
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -15,7 +15,7 @@ public class TestExample {
 
     @Before
     public void setUp() {
-	gameModel = new RowGameModel();
+	gameModel = new RowGameModel(RowGameModel.Strategy.ThreeInARow, 3, 3);
     }
 
     @After

@@ -13,6 +13,7 @@ public class RowGameModel
      */
     public String player = "1";
     public int movesLeft;
+    public int totalMoves;
     public int rows;
     public int columns;
 
@@ -43,7 +44,9 @@ public class RowGameModel
         this.strategy = strategy;
         this.rows = rows;
         this.columns = columns;
-        this.movesLeft = rows * columns;
+        this.totalMoves = rows * columns;
+        this.movesLeft = this.totalMoves;
+
     }
 
     public String getFinalResult() {

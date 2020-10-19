@@ -5,6 +5,8 @@ import model.RowGameModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 
 public class RowGameStatusView implements RowGameView
@@ -15,7 +17,12 @@ public class RowGameStatusView implements RowGameView
     
     public RowGameStatusView(RowGameController gameController) {
 		super();
-
+		gameController.gameModel.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				update(gameController.gameModel);
+			}
+		});
 		messages.setBackground(Color.white);
 		messages.add(playerturn);
     }

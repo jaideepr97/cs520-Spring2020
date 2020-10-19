@@ -1,12 +1,16 @@
 package model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
-public class RowGameModel 
+public class RowGameModel
 {
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
 
     public RowBlockModel[][] blocksData;
     public enum Strategy { ThreeInARow, TicTacToe};
+    private PropertyChangeSupport changes;
+
 
     /**
      * The current player taking their turn
@@ -31,9 +35,15 @@ public class RowGameModel
     private String finalResult = null;
 
 
+    public RowBlockModel[][] getBlocksData() {
+        return blocksData;
+    }
+
     public RowGameModel(Strategy strategy, int rows, int columns) {
 	    super();
         blocksData = new RowBlockModel[rows][columns];
+        changes = new PropertyChangeSupport(this);
+
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < columns; col++) {
@@ -46,14 +56,43 @@ public class RowGameModel
         this.columns = columns;
         this.totalMoves = rows * columns;
         this.movesLeft = this.totalMoves;
-
     }
 
     public String getFinalResult() {
-	return this.finalResult;
+	    return this.finalResult;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setBlocksData(int row, int column, String content) {
+        String oldContent = this.blocksData[row][column].getContents();
+        this.blocksData[row][column].setContents(content);
+        changes.firePropertyChange("Content", oldContent, content);
+    }
+
+    public void setIsLegal(int row, int column, boolean isLegal) {
+        boolean oldIsLegal = this.blocksData[row][column].getIsLegalMove();
+        this.blocksData[row][column].setIsLegalMove(isLegal);
+        changes.firePropertyChange("isLegal", oldIsLegal, isLegal);
+    }
+
+    public void setPlayer(String player) {
+        String oldPlayer = this.player;
+        this.player = player;
+        changes.firePropertyChange("player", oldPlayer, player);
     }
 
     public void setFinalResult(String finalResult) {
-	this.finalResult = finalResult;
+        this.finalResult = finalResult;
+        changes.firePropertyChange("finalResult", null, finalResult);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener(l);
+    }
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        changes.removePropertyChangeListener(l);
     }
 }

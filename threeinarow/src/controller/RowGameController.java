@@ -24,22 +24,21 @@ public class RowGameController implements RowGameRulesStrategy{
      * Creates a new game initializing the GUI.
      */
     public RowGameController(RowGameModel.Strategy strategy, int rows, int columns) {
-	gameModel = new RowGameModel(strategy, rows, columns);
-	gameView = new RowGameGUI(this, rows, columns);
-	
-	resetGame();
+		gameModel = new RowGameModel(strategy, rows, columns);
+		gameView = new RowGameGUI(this, rows, columns);
+		resetGame();
     }
 
     public RowGameModel getModel() {
-	return this.gameModel;
+		return this.gameModel;
     }
 
     public RowGameGUI getView() {
-	return this.gameView;
+		return this.gameView;
     }
 
     public void startUp() {
-	gameView.gui.setVisible(true);
+		gameView.gui.setVisible(true);
     }
 
     public void makeMove(JButton block, int row, int col) {
@@ -53,12 +52,12 @@ public class RowGameController implements RowGameRulesStrategy{
 		int movesLeft = gameModel.movesLeft;
 		if(player.equals("1")) {
 			// Check whether player 1 won
-			gameModel.blocksData[row][col].setContents("X");
-			gameModel.blocksData[row][col].setIsLegalMove(false);
-			if(row > 0) {
-				gameModel.blocksData[row-1][col].setIsLegalMove(true);
+			gameModel.setBlocksData(row, col, "X");
+			gameModel.setIsLegal(row, col, false);
+			if(row > 0 && gameModel.blocksData[row-1][col].getContents().equals("")) {
+				gameModel.setIsLegal(row-1, col, true);
 			}
-			gameModel.player = "2";
+			gameModel.setPlayer("2");
 
 			if(movesLeft < gameModel.totalMoves - gameModel.rows + 1) {
 				if(isWin(this.gameModel)) {
@@ -70,13 +69,12 @@ public class RowGameController implements RowGameRulesStrategy{
 			}
 		} else {
 			// Check whether player 2 won
-
-			gameModel.blocksData[row][col].setContents("O");
-			gameModel.blocksData[row][col].setIsLegalMove(false);
-			if(row > 0) {
-				gameModel.blocksData[row-1][col].setIsLegalMove(true);
+			gameModel.setBlocksData(row, col, "O");
+			gameModel.setIsLegal(row, col, false);
+			if(row > 0 && gameModel.blocksData[row-1][col].getContents().equals("")) {
+				gameModel.setIsLegal(row-1, col, true);
 			}
-			gameModel.player = "1";
+			gameModel.setPlayer("1");
 
 			if(movesLeft < gameModel.totalMoves - gameModel.rows + 1) {
 				if(isWin(this.gameModel)) {
@@ -87,20 +85,17 @@ public class RowGameController implements RowGameRulesStrategy{
 				}
 			}
 		}
-	gameView.update(gameModel);
     }
 
     /**
      * Ends the game disallowing further player turns.
      */
     public void endGame(RowGameModel gameModel) {
-	for(int row = 0;row<gameModel.rows ;row++) {
-	    for(int column = 0;column<gameModel.columns ;column++) {
-		this.gameModel.blocksData[row][column].setIsLegalMove(false);
-	    }
-	}
-
-	gameView.update(gameModel);
+		for(int row = 0;row<gameModel.rows ;row++) {
+			for(int column = 0;column<gameModel.columns ;column++) {
+				this.gameModel.setIsLegal(row, column, false);
+			}
+		}
     }
 
     /**
@@ -112,17 +107,15 @@ public class RowGameController implements RowGameRulesStrategy{
                 gameModel.blocksData[row][column].reset();
 				// Enable the bottom row
 				if(gameModel.strategy == RowGameModel.Strategy.ThreeInARow) {
-					gameModel.blocksData[row][column].setIsLegalMove(row == gameModel.rows-1);
+					this.gameModel.setIsLegal(row, column, row == gameModel.rows-1);
 				} else if (gameModel.strategy == RowGameModel.Strategy.TicTacToe) {
-					gameModel.blocksData[row][column].setIsLegalMove(true);
+					gameModel.setIsLegal(row, column, true);
 				}
             }
         }
-		gameModel.player = "1";
+        gameModel.setPlayer("1");
 		gameModel.movesLeft = gameModel.rows * gameModel.columns;
 		gameModel.setFinalResult(null);
-
-		gameView.update(gameModel);
     }
 
     public void resetGame() {

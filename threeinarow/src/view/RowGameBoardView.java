@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 
 public class RowGameBoardView implements RowGameView
@@ -20,6 +22,13 @@ public class RowGameBoardView implements RowGameView
         blocks = new JButton[rows][columns];
         JPanel game = new JPanel(new GridLayout(rows, columns));
         gamePanel.add(game, BorderLayout.CENTER);
+
+        gameController.gameModel.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                update(gameController.gameModel);
+            }
+        });
 	
        // Initialize a JButton for each cell of the 3x3 game board.
         for(int row = 0; row<rows; row++) {

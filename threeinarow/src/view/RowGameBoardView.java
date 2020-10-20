@@ -13,7 +13,7 @@ import java.beans.PropertyChangeListener;
 
 public class RowGameBoardView implements RowGameView
 {
-    private JButton[][] blocks;
+    public JButton[][] blocks;
     protected JPanel gamePanel = new JPanel(new FlowLayout());
 
     

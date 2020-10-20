@@ -11,7 +11,7 @@ import java.beans.PropertyChangeListener;
 
 public class RowGameStatusView implements RowGameView
 {
-    private JTextArea playerturn = new JTextArea();
+    public JTextArea playerturn = new JTextArea();
     protected JPanel messages = new JPanel(new FlowLayout());
 
     

@@ -15,11 +15,11 @@ import java.awt.event.ActionListener;
 public class RowGameGUI implements RowGameView
 {
     public JFrame gui = new JFrame("Three in a Row");
-    private RowGameBoardView gameBoardView;
+    public RowGameBoardView gameBoardView;
     private JButton reset = new JButton("Reset");
     private JButton threeInARow = new JButton("3-in-a-row");
     private JButton ticTacToe = new JButton("tic-tac-toe");
-    private RowGameStatusView gameStatusView;
+    public RowGameStatusView gameStatusView;
     private RowGameController gameController;
     private SelectStrategy selectStrategy;
     private int rows;

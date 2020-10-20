@@ -1,5 +1,5 @@
-import model.RowBlockModel;
-import model.RowGameModel;
+package model;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,17 +10,17 @@ import static org.junit.Assert.assertEquals;
 /**
  * An example test class, which merely shows how to write JUnit tests.
  */
-public class TestExample {
+public class ModelTests {
     private RowGameModel gameModel;
 
     @Before
     public void setUp() {
-	gameModel = new RowGameModel(RowGameModel.Strategy.ThreeInARow, 3, 3);
+	    gameModel = new RowGameModel(3, 3);
     }
 
     @After
     public void tearDown() {
-	gameModel = null;
+	    gameModel = null;
     }
 
     @Test
@@ -31,6 +31,6 @@ public class TestExample {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNewBlockViolatesPrecondition() {
-	RowBlockModel block = new RowBlockModel(null);
+	    RowBlockModel block = new RowBlockModel(null);
     }
 }

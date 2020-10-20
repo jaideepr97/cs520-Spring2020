@@ -45,41 +45,48 @@ public abstract class RowGameController implements RowGameRulesStrategy{
 
 	// Simplified logic in move() to make it more testable and address identified issue #3
     public void move(RowGameModel gameModel, int row, int col) {
-		gameModel.movesLeft = gameModel.movesLeft - 1;
+
 		String player = gameModel.player;
-		int movesLeft = gameModel.movesLeft;
+//		int movesLeft = gameModel.movesLeft;
 		if(player.equals("1")) {
 			// Check whether player 1 won
-			gameModel.setBlocksData(row, col, "X");
-			gameModel.setIsLegal(row, col, false);
-			if(row > 0 && gameModel.blocksData[row-1][col].getContents().equals("")) {
-				gameModel.setIsLegal(row-1, col, true);
-			}
-			gameModel.setPlayer("2");
-
-			if(movesLeft < gameModel.totalMoves - gameModel.rows + 1) {
-				if(isWin(this.gameModel)) {
-					gameModel.setFinalResult("Player 1 wins!");
-					endGame(this.gameModel);
-				} else if (isTie(this.gameModel)) {
-					gameModel.setFinalResult(GAME_END_NOWINNER);
+			if(gameModel.blocksData[row][col].getIsLegalMove() && gameModel.blocksData[row][col].getContents() == "") {
+				gameModel.movesLeft = gameModel.movesLeft - 1;
+				gameModel.setBlocksData(row, col, "X");
+				gameModel.setIsLegal(row, col, false);
+				if(row > 0 && gameModel.blocksData[row-1][col].getContents().equals("")) {
+					gameModel.setIsLegal(row-1, col, true);
+				}
+				gameModel.setPlayer("2");
+				if(gameModel.movesLeft < gameModel.totalMoves - gameModel.rows + 1) {
+					if(isWin(this.gameModel)) {
+						gameModel.setFinalResult("Player 1 wins!");
+						endGame(this.gameModel);
+					}
+					if (isTie(this.gameModel)) {
+						gameModel.setFinalResult(GAME_END_NOWINNER);
+					}
 				}
 			}
 		} else {
 			// Check whether player 2 won
-			gameModel.setBlocksData(row, col, "O");
-			gameModel.setIsLegal(row, col, false);
-			if(row > 0 && gameModel.blocksData[row-1][col].getContents().equals("")) {
-				gameModel.setIsLegal(row-1, col, true);
-			}
-			gameModel.setPlayer("1");
+			if(gameModel.blocksData[row][col].getIsLegalMove() && gameModel.blocksData[row][col].getContents() == "") {
+				gameModel.movesLeft = gameModel.movesLeft - 1;
+				gameModel.setBlocksData(row, col, "O");
+				gameModel.setIsLegal(row, col, false);
+				if(row > 0 && gameModel.blocksData[row-1][col].getContents().equals("")) {
+					gameModel.setIsLegal(row-1, col, true);
+				}
+				gameModel.setPlayer("1");
 
-			if(movesLeft < gameModel.totalMoves - gameModel.rows + 1) {
-				if(isWin(this.gameModel)) {
-					gameModel.setFinalResult("Player 2 wins!");
-					endGame(this.gameModel);
-				} else if (isTie(this.gameModel)) {
-					gameModel.setFinalResult(GAME_END_NOWINNER);
+				if(gameModel.movesLeft < gameModel.totalMoves - gameModel.rows + 1) {
+					if(isWin(this.gameModel)) {
+						gameModel.setFinalResult("Player 2 wins!");
+						endGame(this.gameModel);
+					}
+					if (isTie(this.gameModel)) {
+						gameModel.setFinalResult(GAME_END_NOWINNER);
+					}
 				}
 			}
 		}

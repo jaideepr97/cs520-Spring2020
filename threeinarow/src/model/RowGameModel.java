@@ -39,7 +39,7 @@ public class RowGameModel
         return blocksData;
     }
 
-    public RowGameModel(Strategy strategy, int rows, int columns) {
+    public RowGameModel(int rows, int columns) {
 	    super();
         blocksData = new RowBlockModel[rows][columns];
         changes = new PropertyChangeSupport(this);
@@ -51,7 +51,7 @@ public class RowGameModel
             } // end for col
         } // end for row
 
-        this.strategy = strategy;
+//        this.strategy = strategy;
         this.rows = rows;
         this.columns = columns;
         this.totalMoves = rows * columns;

@@ -13,7 +13,7 @@ import javax.swing.*;
  * principles and needs a thorough overhaul to improve readability,
  * extensibility, and testability.
  */
-public class RowGameController implements RowGameRulesStrategy{
+public abstract class RowGameController implements RowGameRulesStrategy{
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
 
     public RowGameModel gameModel;
@@ -23,11 +23,13 @@ public class RowGameController implements RowGameRulesStrategy{
     /**
      * Creates a new game initializing the GUI.
      */
-    public RowGameController(RowGameModel.Strategy strategy, int rows, int columns) {
-		gameModel = new RowGameModel(strategy, rows, columns);
+    public RowGameController(int rows, int columns) {
+		gameModel = new RowGameModel(rows, columns);
 		gameView = new RowGameGUI(this, rows, columns);
 		resetGame();
     }
+
+    public RowGameController() {}
 
     public RowGameModel getModel() {
 		return this.gameModel;
@@ -40,14 +42,13 @@ public class RowGameController implements RowGameRulesStrategy{
     public void startUp() {
 		gameView.gui.setVisible(true);
     }
-
+//
     public void makeMove(JButton block, int row, int col) {
     	this.move(this.gameModel, row, col);
 	}
 
     public void move(RowGameModel gameModel, int row, int col) {
 		gameModel.movesLeft = gameModel.movesLeft - 1;
-		JButton block = gameView.gameBoardView.blocks[row][col];
 		String player = gameModel.player;
 		int movesLeft = gameModel.movesLeft;
 		if(player.equals("1")) {
@@ -122,10 +123,10 @@ public class RowGameController implements RowGameRulesStrategy{
     	reset(this.gameModel);
 	}
 
-	public void resetGame(RowGameModel.Strategy strategy) {
-    	this.gameModel.setStrategy(strategy);
-    	reset(this.gameModel);
-	}
+//	public void resetGame(RowGameModel.Strategy strategy) {
+//    	this.gameModel.setStrategy(strategy);
+//    	reset(this.gameModel);
+//	}
 
 	public boolean isWin(RowGameModel gameModel) {
     	int rows = gameModel.blocksData.length;

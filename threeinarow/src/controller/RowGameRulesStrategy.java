@@ -12,4 +12,6 @@ public interface RowGameRulesStrategy
     public boolean isWin(RowGameModel gameModel);
 
     public boolean isTie(RowGameModel gameModel);
+
+    public void startUp();
 }

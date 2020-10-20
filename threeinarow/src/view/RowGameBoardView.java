@@ -54,11 +54,11 @@ public class RowGameBoardView implements RowGameView
      * @param gameModel The current game model
      */
     public void update(RowGameModel gameModel) {
-	for (int row = 0; row < gameModel.rows; row++) {
-	    for (int column = 0; column < gameModel.columns; column++) {
-		this.updateBlock(gameModel, row, column);
-	    } // end for col
-	} // end for row	
+        for (int row = 0; row < gameModel.rows; row++) {
+            for (int column = 0; column < gameModel.columns; column++) {
+                this.updateBlock(gameModel, row, column);
+            } // end for col
+        } // end for row
     }
 
     /**
@@ -70,7 +70,7 @@ public class RowGameBoardView implements RowGameView
      * @param col The column that contains the block
      */
     protected void updateBlock(RowGameModel gameModel, int row, int col) {
-	blocks[row][col].setText(gameModel.blocksData[row][col].getContents());
-	blocks[row][col].setEnabled(gameModel.blocksData[row][col].getIsLegalMove());	
+        blocks[row][col].setText(gameModel.blocksData[row][col].getContents());
+        blocks[row][col].setEnabled(gameModel.blocksData[row][col].getIsLegalMove());
     }
 }

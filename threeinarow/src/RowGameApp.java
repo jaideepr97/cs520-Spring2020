@@ -1,5 +1,6 @@
 import controller.RowGameController;
-import model.RowGameModel;
+import controller.RowGameControllerThreeInARow;
+import controller.SelectStrategy;
 
 
 public class RowGameApp 
@@ -11,11 +12,14 @@ public class RowGameApp
         int rows = Integer.parseInt(args[0]);
         int columns = Integer.parseInt(args[1]);
         if( rows < 0 || columns <0 || rows != columns ) {
-            System.out.println("Invalid dimentions");
+            System.out.println("Invalid dimensions");
         }
         else {
-            RowGameController game = new RowGameController(RowGameModel.Strategy.ThreeInARow, rows, columns);
-            game.startUp();
+//            RowGameController game = new RowGameController(rows, columns);
+//            game.startUp();
+            RowGameController defaultStrategy = new RowGameControllerThreeInARow(rows, columns);
+            SelectStrategy selectStrategy = new SelectStrategy(defaultStrategy);
+            selectStrategy.startStrategy(defaultStrategy);
         }
 
     }

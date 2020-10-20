@@ -1,6 +1,9 @@
 package view;
 
 import controller.RowGameController;
+import controller.RowGameControllerThreeInARow;
+import controller.RowGameControllerTicTacToe;
+import controller.SelectStrategy;
 import model.RowGameModel;
 
 import javax.swing.*;
@@ -19,14 +22,19 @@ public class RowGameGUI implements RowGameView
     public RowGameStatusView gameStatusView;
     
     private RowGameController gameController;
+    private SelectStrategy selectStrategy;
+    private int rows;
+    private int columns;
 
 
     /**
      * Creates a new game initializing the GUI.
      */
     public RowGameGUI(RowGameController gameController, int rows, int columns) {
-	this.gameController = gameController;
-	
+	    this.gameController = gameController;
+        System.out.println(gameController.gameModel.toString());
+	    this.rows = rows;
+	    this.columns = columns;
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setSize(new Dimension(500, 350));
         gui.setResizable(true);
@@ -54,13 +62,17 @@ public class RowGameGUI implements RowGameView
 
         threeInARow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gameController.resetGame(RowGameModel.Strategy.ThreeInARow);
+//                gameController.resetGame(RowGameModel.Strategy.ThreeInARow);
+                selectStrategy = new SelectStrategy(new RowGameControllerThreeInARow(rows, columns));
+                selectStrategy.executeStrategy(gameController.gameModel);
             }
         });
 
         ticTacToe.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gameController.resetGame(RowGameModel.Strategy.TicTacToe);
+//                gameController.resetGame(RowGameModel.Strategy.TicTacToe);
+                selectStrategy = new SelectStrategy(new RowGameControllerTicTacToe(rows, columns));
+                selectStrategy.executeStrategy(gameController.gameModel);
             }
         });
     }

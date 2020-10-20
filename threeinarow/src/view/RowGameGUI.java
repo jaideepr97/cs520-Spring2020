@@ -15,12 +15,11 @@ import java.awt.event.ActionListener;
 public class RowGameGUI implements RowGameView
 {
     public JFrame gui = new JFrame("Three in a Row");
-    public RowGameBoardView gameBoardView;
-    public JButton reset = new JButton("Reset");
-    public JButton threeInARow = new JButton("3-in-a-row");
-    public JButton ticTacToe = new JButton("tic-tac-toe");
-    public RowGameStatusView gameStatusView;
-    
+    private RowGameBoardView gameBoardView;
+    private JButton reset = new JButton("Reset");
+    private JButton threeInARow = new JButton("3-in-a-row");
+    private JButton ticTacToe = new JButton("tic-tac-toe");
+    private RowGameStatusView gameStatusView;
     private RowGameController gameController;
     private SelectStrategy selectStrategy;
     private int rows;
@@ -34,6 +33,7 @@ public class RowGameGUI implements RowGameView
     // Separating GUI initialization from business logic through MVC addressed identified issue #1
     public RowGameGUI(RowGameController gameController, int rows, int columns) {
 	    this.gameController = gameController;
+	    this.selectStrategy = new SelectStrategy(gameController);
 	    this.rows = rows;
 	    this.columns = columns;
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

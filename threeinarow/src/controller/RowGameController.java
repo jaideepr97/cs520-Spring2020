@@ -15,9 +15,8 @@ import javax.swing.*;
  */
 public abstract class RowGameController implements RowGameRulesStrategy{
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
-
     public RowGameModel gameModel;
-    public RowGameGUI gameView;
+    protected RowGameGUI gameView;
 
 
     /**
@@ -28,8 +27,6 @@ public abstract class RowGameController implements RowGameRulesStrategy{
 		gameView = new RowGameGUI(this, rows, columns);
 		resetGame();
     }
-
-    public RowGameController() {}
 
     public RowGameModel getModel() {
 		return this.gameModel;
@@ -103,20 +100,7 @@ public abstract class RowGameController implements RowGameRulesStrategy{
      * Resets the game to be able to start playing again.
      */
     public void reset(RowGameModel gameModel) {
-        for(int row = 0;row<gameModel.rows;row++) {
-            for(int column = 0;column<gameModel.columns;column++) {
-                gameModel.blocksData[row][column].reset();
-				// Enable the bottom row
-				if(gameModel.strategy == RowGameModel.Strategy.ThreeInARow) {
-					this.gameModel.setIsLegal(row, column, row == gameModel.rows-1);
-				} else if (gameModel.strategy == RowGameModel.Strategy.TicTacToe) {
-					gameModel.setIsLegal(row, column, true);
-				}
-            }
-        }
-        gameModel.setPlayer("1");
-		gameModel.movesLeft = gameModel.rows * gameModel.columns;
-		gameModel.setFinalResult(null);
+		// overridden by subclasses
     }
 
     public void resetGame() {

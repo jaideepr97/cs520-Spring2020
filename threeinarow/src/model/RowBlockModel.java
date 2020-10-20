@@ -28,18 +28,18 @@ public class RowBlockModel
      * @throws IllegalArgumentException When the given game is null
      */
     public RowBlockModel(RowGameModel game) {
-	super();
+        super();
 
-	if (game == null) {
-	    throw new IllegalArgumentException("The game must be non-null.");
-	}
-	
-	this.game = game;
-	this.reset();
+        if (game == null) {
+            throw new IllegalArgumentException("The game must be non-null.");
+        }
+
+        this.game = game;
+        this.reset();
     }
 
     public RowGameModel getGame() {
-	return this.game;
+	    return this.game;
     }
 
     /**
@@ -49,10 +49,10 @@ public class RowBlockModel
      * @throws IllegalArgumentException When the given value is null
      */
     public void setContents(String value) {
-	if (value == null) {
-	    throw new IllegalArgumentException("The value must be non-null.");
-	}
-	this.contents = value;
+        if (value == null) {
+            throw new IllegalArgumentException("The value must be non-null.");
+        }
+        this.contents = value;
     }
 
     /**
@@ -61,22 +61,22 @@ public class RowBlockModel
      * @return The non-null String value
      */
     public String getContents() {
-	return this.contents;
+	    return this.contents;
     }
 
     public void setIsLegalMove(boolean isLegalMove) {
-	this.isLegalMove = isLegalMove;
+	    this.isLegalMove = isLegalMove;
     }
 
     public boolean getIsLegalMove() {
-	return this.isLegalMove;
+	    return this.isLegalMove;
     }
 
     /**
      * Resets this block before starting a new game.
      */
     public void reset() {
-	this.contents = "";
-	this.isLegalMove = false;
+        this.contents = "";
+        this.isLegalMove = false;
     }
 }

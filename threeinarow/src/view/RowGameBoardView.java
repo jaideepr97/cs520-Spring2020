@@ -13,11 +13,11 @@ import java.beans.PropertyChangeListener;
 
 public class RowGameBoardView implements RowGameView
 {
-    public JButton[][] blocks;
-    public JPanel gamePanel = new JPanel(new FlowLayout());
+    private JButton[][] blocks;
+    protected JPanel gamePanel = new JPanel(new FlowLayout());
 
     
-    public RowGameBoardView(RowGameController gameController, int rows, int columns) {
+    protected RowGameBoardView(RowGameController gameController, int rows, int columns) {
 	super();
         blocks = new JButton[rows][columns];
         JPanel game = new JPanel(new GridLayout(rows, columns));

@@ -11,11 +11,11 @@ import java.beans.PropertyChangeListener;
 
 public class RowGameStatusView implements RowGameView
 {
-    public JTextArea playerturn = new JTextArea();
-    public JPanel messages = new JPanel(new FlowLayout());
+    private JTextArea playerturn = new JTextArea();
+    protected JPanel messages = new JPanel(new FlowLayout());
 
     
-    public RowGameStatusView(RowGameController gameController) {
+    protected RowGameStatusView(RowGameController gameController) {
 		super();
 		gameController.gameModel.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override

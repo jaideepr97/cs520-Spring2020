@@ -6,12 +6,8 @@ import java.beans.PropertyChangeSupport;
 public class RowGameModel
 {
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
-
     public RowBlockModel[][] blocksData;
-    public enum Strategy { ThreeInARow, TicTacToe};
     private PropertyChangeSupport changes;
-
-
     /**
      * The current player taking their turn
      */
@@ -20,18 +16,6 @@ public class RowGameModel
     public int totalMoves;
     public int rows;
     public int columns;
-
-    public Strategy getStrategy() {
-        return strategy;
-    }
-
-    public void setStrategy(Strategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public Strategy strategy;
-
-
     private String finalResult = null;
 
 

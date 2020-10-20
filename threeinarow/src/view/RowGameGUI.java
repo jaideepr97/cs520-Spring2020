@@ -32,7 +32,6 @@ public class RowGameGUI implements RowGameView
      */
     public RowGameGUI(RowGameController gameController, int rows, int columns) {
 	    this.gameController = gameController;
-        System.out.println(gameController.gameModel.toString());
 	    this.rows = rows;
 	    this.columns = columns;
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,13 +55,12 @@ public class RowGameGUI implements RowGameView
 
         reset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gameController.resetGame();
+                selectStrategy.executeStrategy(gameController.gameModel);
             }
         });
 
         threeInARow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                gameController.resetGame(RowGameModel.Strategy.ThreeInARow);
                 selectStrategy = new SelectStrategy(new RowGameControllerThreeInARow(rows, columns));
                 selectStrategy.executeStrategy(gameController.gameModel);
             }
@@ -70,7 +68,6 @@ public class RowGameGUI implements RowGameView
 
         ticTacToe.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                gameController.resetGame(RowGameModel.Strategy.TicTacToe);
                 selectStrategy = new SelectStrategy(new RowGameControllerTicTacToe(rows, columns));
                 selectStrategy.executeStrategy(gameController.gameModel);
             }

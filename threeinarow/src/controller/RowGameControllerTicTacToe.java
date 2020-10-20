@@ -7,14 +7,9 @@ import javax.swing.*;
 public class RowGameControllerTicTacToe extends RowGameController implements RowGameRulesStrategy {
 
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
-    public RowGameModel gameModel;
-    public RowGameGUI gameView;
 
     public RowGameControllerTicTacToe(int rows, int columns) {
         super(rows, columns);
-        gameModel = new RowGameModel(rows, columns);
-        gameView = new RowGameGUI(this, rows, columns);
-        resetGame();
     }
 
     public RowGameModel getModel() {

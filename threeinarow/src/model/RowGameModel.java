@@ -51,7 +51,6 @@ public class RowGameModel
             } // end for col
         } // end for row
 
-//        this.strategy = strategy;
         this.rows = rows;
         this.columns = columns;
         this.totalMoves = rows * columns;

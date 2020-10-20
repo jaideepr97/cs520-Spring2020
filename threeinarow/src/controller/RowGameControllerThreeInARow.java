@@ -7,15 +7,9 @@ import javax.swing.*;
 public class RowGameControllerThreeInARow extends RowGameController implements RowGameRulesStrategy {
 
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
-    public RowGameModel gameModel;
-    public RowGameGUI gameView;
 
     public RowGameControllerThreeInARow(int rows, int columns) {
-        super();
-        this.gameModel = new RowGameModel(rows, columns);
-        System.out.println(this.gameModel.totalMoves);
-        this.gameView = new RowGameGUI(this, rows, columns);
-        resetGame();
+        super(rows, columns);
     }
 
     public RowGameModel getModel() {
@@ -49,8 +43,8 @@ public class RowGameControllerThreeInARow extends RowGameController implements R
      * Resets the game to be able to start playing again.
      */
     public void reset(RowGameModel gameModel) {
-        for(int row = 0; row<gameModel.rows; row++) {
-            for(int column = 0; column<gameModel.columns; column++) {
+        for(int row = 0; row<this.gameModel.rows; row++) {
+            for(int column = 0; column<this.gameModel.columns; column++) {
                 gameModel.blocksData[row][column].reset();
                 gameModel.setIsLegal(row, column, row == gameModel.rows-1);
             }

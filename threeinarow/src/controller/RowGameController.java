@@ -123,11 +123,6 @@ public abstract class RowGameController implements RowGameRulesStrategy{
     	reset(this.gameModel);
 	}
 
-//	public void resetGame(RowGameModel.Strategy strategy) {
-//    	this.gameModel.setStrategy(strategy);
-//    	reset(this.gameModel);
-//	}
-
 	public boolean isWin(RowGameModel gameModel) {
     	int rows = gameModel.blocksData.length;
     	int columns = gameModel.blocksData[0].length;

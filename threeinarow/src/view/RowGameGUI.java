@@ -30,6 +30,8 @@ public class RowGameGUI implements RowGameView
     /**
      * Creates a new game initializing the GUI.
      */
+
+    // Separating GUI initialization from business logic through MVC addressed identified issue #1
     public RowGameGUI(RowGameController gameController, int rows, int columns) {
 	    this.gameController = gameController;
 	    this.rows = rows;

@@ -42,11 +42,11 @@ public abstract class RowGameController implements RowGameRulesStrategy{
     public void startUp() {
 		gameView.gui.setVisible(true);
     }
-//
     public void makeMove(JButton block, int row, int col) {
     	this.move(this.gameModel, row, col);
 	}
 
+	// Simplified logic in move() to make it more testable and address identified issue #3
     public void move(RowGameModel gameModel, int row, int col) {
 		gameModel.movesLeft = gameModel.movesLeft - 1;
 		String player = gameModel.player;

@@ -53,6 +53,8 @@ public class RowGameBoardView implements RowGameView
      *
      * @param gameModel The current game model
      */
+
+    // Parameterizing loop variables to address identified issue #2
     public void update(RowGameModel gameModel) {
         for (int row = 0; row < gameModel.rows; row++) {
             for (int column = 0; column < gameModel.columns; column++) {
